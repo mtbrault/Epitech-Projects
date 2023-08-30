@@ -1,0 +1,16 @@
+/*
+** my_find_prime_sup.c for  in /home/b00bix/delivery/CPool_Day05
+** 
+** Made by Matthieu BRAULT
+** Login   <b00bix@epitech.net>
+** 
+** Started on  Tue Oct 11 09:50:43 2016 Matthieu BRAULT
+** Last update Tue Oct 11 09:51:08 2016 Matthieu BRAULT
+*/
+
+#include <unistd.h>
+
+int	my_find_prime_sup(int b)
+{
+  return (0);
+}
