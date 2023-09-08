@@ -1,0 +1,69 @@
+#!/usr/bin/python
+
+import sys, math, time
+
+if len (sys.argv) == 2:
+    try:
+        avg = float(sys.argv[1])
+    except:
+        print("Please select a correct argument")
+        sys.exit(84)
+    lamda = (avg / 3600) * 3500 / 8
+    s = 0
+    overload_poisson = 0
+    overload_bino = 0
+    result_poisson = list()
+    result_bino = list()
+    first_poisson = time.time()
+    while (s <= 50):
+        result = (lamda**s / math.factorial(s)) * math.exp(-lamda)
+        result_poisson.append(result)
+        if (s > 25):
+            overload_poisson += result
+        s += 1
+    second_poisson = time.time()
+    n = 3500
+    p = lamda / n
+    first_bino = time.time()
+    k = 0
+    while (k <= 50):
+        result = math.factorial(n) / (math.factorial(k) * math.factorial(n -k)) * p**k * (1 - p)**(n - k)
+        result_bino.append(result)
+        if (k > 25):
+            overload_bino += result
+        k += 1
+    second_bino = time.time()
+    print("Binomial distribution:")
+    i = 0
+    while (i <= 42):
+        print("%d -> %.3f\t%d -> %.3f\t%d -> %.3f\t%d -> %.3f\t%d -> %.3f\t%d -> %.3f" % (i, result_bino[i], i+1, result_bino[i+1], i+2, result_bino[i+2], i+3, result_bino[i+3], i+4, result_bino[i+4], i+5, result_bino[i+5]))
+        i += 6
+    print("%d -> %.3f\t%d -> %.3f\t%d -> %.3f" % (i, result_bino[i], i+1, result_bino[i+1], i+2, result_bino[i+2]))
+    print("overload: %.1f%%" % (overload_bino * 100))
+    print("computation time: %.2f ms\n" % ((second_bino - first_bino) * 100))
+    print("Poisson distribution:")
+    i = 0
+    while (i <= 42):
+        print("%d -> %.3f\t%d -> %.3f\t%d -> %.3f\t%d -> %.3f\t%d -> %.3f\t%d -> %.3f" % (i, result_poisson[i], i+1, result_poisson[i+1], i+2, result_poisson[i+2], i+3, result_poisson[i+3], i+4, result_poisson[i+4], i+5, result_poisson[i+5]))
+        i += 6
+    print("%d -> %.3f\t%d -> %.3f\t%d -> %.3f" % (i, result_poisson[i], i+1, result_poisson[i+1], i+2, result_poisson[i+2]))
+    print("overload: %.1f%%" % (overload_poisson * 100))
+    print("computation time: %.2f ms" % ((second_poisson - first_poisson) * 100))
+    
+elif len (sys.argv) == 3:
+    try:
+        n = int(sys.argv[1])
+        k = int(sys.argv[2])
+    except:
+        print("You must enter only number")
+        sys.exit(84)
+    if n < k or n < 0 or k < 0:
+        print("You must select positive integer args")
+        sys.exit(84)
+    result = math.factorial(n) / (math.factorial(k) * math.factorial(n - k))
+    print("%d-combination of a %d set:\n%d" % (k, n, result))
+
+    
+else:
+    print("Invalid number of argument")
+    sys.exit(84)

@@ -1,0 +1,8 @@
+USAGE
+	./205IQ u o [IQ1] [IQ2]
+
+DESCRIPTION
+	u	predetermined mean
+	o	predetermined standard deviation
+	IQ1	maximum IQ
+	IQ2	maximum IQ
